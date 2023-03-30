@@ -1,22 +1,36 @@
-import { Model, Optional } from "Sequelize";
+import { Model, InferAttributes, InferCreationAttributes, DataTypes, Sequelize } from 'Sequelize';
+import { sequelizeConnection } from '../config/database';
 
-type UserAttributes = {
-  id:number,
-  name:string,
-  lastName:string,
-  cellphone:number,
-  email:string,
-  password:string,
-}
+const Users = sequelizeConnection.define(
+  "Users",
+  {
+    id:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
+      primaryKey:true,
+    },
+    name:{
+      type:DataTypes.STRING,
+      allowNull:true,
+    },
+    lastName:{
+      type:DataTypes.STRING,
+      allowNull:true,
+    },
+    cellphone:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
+    },
+    email:{
+      type:DataTypes.STRING,
+      allowNull:true,
+      unique: true,
+    },
+    password:{
+      type:DataTypes.STRING,
+      allowNull:true,
+  }
+  },
+);
 
-type UserCreationAttributes = Optional<UserAttributes, 'id'>;
-
-class User extends Model<UserAttributes, UserCreationAttributes> {
-  declare id:number;
-  declare name:string;
-  declare lastName:string;
-  declare cellphone:number;
-  declare email:string;
-  declare password:string;
-
-}
+export {Users}

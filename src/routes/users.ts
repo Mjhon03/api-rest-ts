@@ -1,7 +1,8 @@
 import { Router, Request, Response } from "express";
+import { getUser } from "../controller/users";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {res.send({data:"Aqui van los datos"})});
+router.get("/", getUser);
 
 export { router };
